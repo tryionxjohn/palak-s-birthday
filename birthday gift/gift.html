@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Palak 🎉</title>
+  <style>
+    :root{--accent:#ff5ca3;--accent2:#ffd86b;--bg:#0f1724;color-scheme:light dark}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      overflow-x:hidden;
+      background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1500&q=80');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+    }
+    .card{width:100%;max-width:980px;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);border-radius:20px;box-shadow:0 10px 30px rgba(2,6,23,0.7);overflow:hidden}
+    header{padding:28px 32px;display:flex;align-items:center;gap:20px}
+    .hero{flex:1}
+    h1{font-size:2rem;margin:0;letter-spacing:0.5px}
+    p.lead{margin:6px 0 0 0;opacity:0.9}
+    .badge{background:linear-gradient(90deg,var(--accent),#ff8ab8);padding:8px 12px;border-radius:999px;font-weight:600}
+    .actions{display:flex;gap:12px}
+    .btn{background:#111827;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:#fff;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#10222a;font-weight:700}
+    .main{display:grid;grid-template-columns:1fr 360px;gap:24px;padding:0 32px 32px 32px}
+    .greeting{padding:20px;border-radius:12px;background:rgba(255,255,255,0.05);min-height:220px}
+    .greeting h2{margin:0 0 6px 0}
+    .message{font-size:1rem;line-height:1.5}
+    .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .gallery img{width:100%;height:150px;object-fit:cover;border-radius:10px;cursor:pointer;display:block}
+    .side{padding:20px}
+    .card-mini{background:rgba(255,255,255,0.05);padding:14px;border-radius:12px}
+    .countdown{font-weight:800;font-size:1.35rem;margin-top:8px}
+    footer{padding:18px 32px;background:rgba(0,0,0,0.3);display:flex;justify-content:space-between;align-items:center}
+    .credits{opacity:0.8;font-size:0.9rem}
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.8);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal img{max-width:100%;max-height:90vh;border-radius:10px}
+    .close-x{position:absolute;right:18px;top:18px;background:transparent;border:none;color:#fff;font-size:26px;cursor:pointer}
+
+    /* Heart animation */
+    .heart{position:fixed;bottom:-10px;width:20px;height:20px;background:red;transform:rotate(45deg);border-radius:5px;z-index:100;opacity:0.8}
+    .heart::before,.heart::after{content:'';position:absolute;width:20px;height:20px;background:red;border-radius:50%}
+    .heart::before{top:-10px;left:0}
+    .heart::after{left:-10px;top:0}
+    @keyframes rise{0%{transform:translateY(0) rotate(45deg);opacity:0.8}100%{transform:translateY(-120vh) rotate(720deg);opacity:0}}
+
+    /* Message modal */
+    #heartModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:80;color:white;text-align:center;padding:20px}
+    #heartModalContent{background:linear-gradient(145deg,#ff5ca3,#ff8ab8);padding:30px;border-radius:20px;max-width:500px;font-size:1.2rem;line-height:1.6;box-shadow:0 0 25px rgba(255,92,163,0.6)}
+    #closeHeartModal{margin-top:15px;background:white;color:#ff5ca3;font-weight:bold;border:none;padding:10px 18px;border-radius:12px;cursor:pointer}
+    @media (max-width:900px){.main{grid-template-columns:1fr}.side{order:2}.gallery img{height:120px}}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <header>
+      <div class="hero">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="badge">For Palak</div>
+          <h1>Happy Birthday, Palak! 🎂</h1>
+        </div>
+        <p class="lead">A little page filled with love, photos and wishes — made especially for you.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="wishBtn">Send a Wish</button>
+      </div>
+    </header>
+
+    <div class="main">
+      <section class="greeting">
+        <h2>Dear Palak,</h2>
+        <p class="message" id="messageText">
+          Wishing you a day filled with love, laughter and sparkling memories. May this year bring you closer to every dream — and may you always find reasons to smile. 🎈
+        </p>
+        <div class="gallery" id="gallery">
+          <img src="photo1.jpg" alt="photo 1" data-full="photo1.jpg">
+          <img src="photo2.jpg" alt="photo 2" data-full="photo2.jpg">
+          <img src="photo3.jpg" alt="photo 3" data-full="photo3.jpg">
+          <img src="photo4.jpg" alt="photo 4" data-full="photo4.jpg">
+        </div>
+        <div style="text-align:center;margin-top:20px;">
+          <button class="btn primary" id="heartBtn">💖 Click Here 💖</button>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="card-mini">
+          <strong>Countdown to cake 🍰</strong>
+          <div class="countdown" id="countdown">-- : -- : -- : --</div>
+          <small id="dateText" style="opacity:0.9;display:block;margin-top:8px">Birthday date: <span id="bdayDate">Replace with date</span></small>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="card-mini">
+          <strong>Quick Wishes</strong>
+          <ol style="padding-left:18px;margin:10px 0 0 0;line-height:1.5">
+            <li>May you sparkle more than the candles ✨</li>
+            <li>Keep shining, always 🌟</li>
+            <li>Love today, laughter tomorrow 💖</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="credits">Made with PRANAY❤️ — a surprise for PALAK(Ukhadicha Modak)</div>
+      <div style="font-size:0.9rem;opacity:0.9">Share this page by hosting the file and sending the link</div>
+    </footer>
+  </div>
+
+  <div class="modal" id="modal">
+    <button class="close-x" id="closeModal">✕</button>
+    <img id="modalImg" src="" alt="">
+  </div>
+
+  <div id="heartModal">
+    <div id="heartModalContent">
+      <p>You were the most unforgettable/hurtful person happened in my life 🫠❤️<br><br>(hurtful bcoz, I'll always feel regret of the day when I've deleted that text and apla zagdha zala, everytime I think kash mai past mai jake wo sab na karta 😭🥹)</p>
+      <button id="closeHeartModal">Close 💔</button>
+    </div>
+  </div>
+
+  <script>
+    // Image modal
+    document.querySelectorAll('#gallery img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        const modal=document.getElementById('modal');
+        const modalImg=document.getElementById('modalImg');
+        modalImg.src=img.dataset.full||img.src;
+        modal.style.display='flex';
+      })
+    });
+    document.getElementById('closeModal').addEventListener('click',()=>document.getElementById('modal').style.display='none');
+
+    // Wish input
+    document.getElementById('wishBtn').addEventListener('click',()=>{
+      const wish=prompt('Type your short birthday wish for Palak (max 200 chars)');
+      if(wish&&wish.trim().length){
+        const p=document.createElement('p');
+        p.textContent='💌 '+wish;
+        p.style.marginTop='8px';
+        p.style.fontWeight='600';
+        document.getElementById('messageText').appendChild(p);
+      }
+    });
+
+    // Countdown
+    const birthdayDate='2025-10-23T00:00:00';
+    (function setupCountdown(){
+      const target=new Date(birthdayDate);
+      if(isNaN(target)){
+        document.getElementById('countdown').textContent='Set the date in the HTML file';
+        document.getElementById('bdayDate').textContent='Not set';
+        return;
+      }
+      document.getElementById('bdayDate').textContent=target.toLocaleString();
+      function tick(){
+        const now=new Date();
+        let diff=target-now;
+        if(diff<=0){document.getElementById('countdown').textContent='Happy Birthday! 🎉';clearInterval(iv);return;}
+        const days=Math.floor(diff/(1000*60*60*24));diff-=days*(1000*60*60*24);
+        const hours=Math.floor(diff/(1000*60*60));diff-=hours*(1000*60*60);
+        const mins=Math.floor(diff/(1000*60));diff-=mins*(1000*60);
+        const secs=Math.floor(diff/1000);
+        document.getElementById('countdown').textContent=`${days}d ${hours}h ${mins}m ${secs}s`;
+      }
+      tick();const iv=setInterval(tick,1000);
+    })();
+
+    // Heart modal
+    const heartBtn=document.getElementById('heartBtn');
+    const heartModal=document.getElementById('heartModal');
+    const closeHeartModal=document.getElementById('closeHeartModal');
+    heartBtn.addEventListener('click',()=>{
+      heartModal.style.display='flex';
+      createHearts(50);
+    });
+    closeHeartModal.addEventListener('click',()=>{heartModal.style.display='none';});
+
+    // Floating hearts
+    function createHearts(count){
+      for(let i=0;i<count;i++){
+        const heart=document.createElement('div');
+        heart.className='heart';
+        heart.style.left=Math.random()*100+'%';
+        heart.style.background='hsl('+Math.random()*360+',80%,60%)';
+        heart.style.animation=`rise ${4+Math.random()*4}s linear forwards`;
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),8000);
+      }
+    }
+    setInterval(()=>{createHearts(2);},800);
+
+    // Confetti
+    function launchConfetti(count=30){
+      const colors=['#ff5ca3','#ffd86b','#5ce1ff','#9bff8a','#c08cff'];
+      for(let i=0;i<count;i++){
+        const el=document.createElement('div');
+        el.className='confetti-piece';
+        el.style.left=Math.random()*100+'%';
+        el.style.background=colors[Math.floor(Math.random()*colors.length)];
+        el.style.transform=`rotate(${Math.random()*360}deg)`;
+        el.style.animation=`fall ${2+Math.random()*3}s linear forwards`;
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(),6000);
+      }
+    }
+    const style=document.createElement('style');
+    style.textContent=`@keyframes fall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}`;
+    document.head.appendChild(style);
+    window.addEventListener('load',()=>{setTimeout(()=>launchConfetti(20),800);});
+  </script>
+</body>
+</html>
